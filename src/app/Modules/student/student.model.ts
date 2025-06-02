@@ -8,23 +8,25 @@ import {
 } from "./student.interface";
 
 const userNameSchema = new Schema<UserName>({
-  firstName: { type: String, require: true, trim : true,
-    validate : {
-        validator : function (value : string){
-        const FirstNameStr = value.charAt(0).toUpperCase() + value.slice(1)
-        return FirstNameStr === value;
-        console.log(value)
-      },
-    message : "{Value} is not capitaliz format",
-    }
-   },
-  middleName: { type: String , trim : true},
-  lastName: { type: String, require: true, trim : true,
-    validate : {
-      validator : (value : string) => validator.isAlpha(value),
-      message : "{VALUE} is not valid",
-    }
-   },
+  firstName: {
+    type: String, require: true, trim: true,
+    // validate : {
+    //     validator : function (value : string){
+    //     const FirstNameStr = value.charAt(0).toUpperCase() + value.slice(1)
+    //     return FirstNameStr === value;
+    //     console.log(value)
+    //   },
+    // message : "{Value} is not capitaliz format",
+    // }
+  },
+  middleName: { type: String, trim: true },
+  lastName: {
+    type: String, require: true, trim: true,
+    // validate : {
+    //   validator : (value : string) => validator.isAlpha(value),
+    //   message : "{VALUE} is not valid",
+    // }
+  },
 });
 
 const guardinaSchema = new Schema<Guardian>({
@@ -45,46 +47,47 @@ const localGuardianSchema = new Schema<localGuardian>({
 
 // 2. Create a Schema corresponding to the document interface.
 const studentSchema = new Schema<Student>({
-  id: { type: String, required : true, unique : true },
+  id: { type: String, required: true, unique: true },
   name: {
-    type : userNameSchema,
-    required : true,
+    type: userNameSchema,
+    required: true,
   },
 
-  gender:{
-    type : String,
-    enum :  ["male", "female", "other"],
-    message : " {VALUE} is not valid the gender must be male or female or other",
-    required : true,
+  gender: {
+    type: String,
+    enum: ["male", "female", "other"],
+    message: " {VALUE} is not valid the gender must be male or female or other",
+    required: true,
   },
   dateOfBirth: { type: String },
-  email: { type: String, required: true, unique : true,
-    validate : {
-      validator : (value : string) => validator.isEmail(value),
+  email: {
+    type: String, required: true, unique: true,
+    validate: {
+      validator: (value: string) => validator.isEmail(value),
       message: "{VALUE} email is not valid",
     }
-   },
+  },
   contactNumber: { type: String, required: true },
   bloodGroup: {
-    type : String,
-    enum : ["A+", "A-", "B+"],
+    type: String,
+    enum: ["A+", "A-", "B+"],
   },
   presentAddress: { type: String },
   parmanentAddress: { type: String },
-  guardian:{
-    type :  guardinaSchema,
-    required : true,
+  guardian: {
+    type: guardinaSchema,
+    required: true,
   },
   localGuardian: {
-    type : localGuardianSchema,
-    required : true,
+    type: localGuardianSchema,
+    required: true,
   },
   profileImg: { type: String },
   isActive: {
-    type : String,
-    enum : ["active", "block"],
-    default : "active",
-    required : true
+    type: String,
+    enum: ["active", "block"],
+    default: "active",
+    required: true
   },
 });
 
